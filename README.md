@@ -11,7 +11,7 @@ ssh login@tp.lbgi.fr	(mdp : genomics2020)
 Create a specific folder for TD3-GC
 ```
 cd
-mkdir TD3_GC TD3_GC/0_FASTQ TD3_GC/1_BAM TD3_GC/2_VCF TD3_GC/REF
+mkdir TD3_GC TD3_GC/0_FASTQ TD3_GC/0_FASTQ/0_RAW TD3_GC/0_FASTQ/0_RAW/FASTQC TD3_GC/0_FASTQ/1_CLEAN TD3_GC/0_FASTQ/1_CLEAN/FASTQC TD3_GC/1_BAM TD3_GC/2_VCF TD3_GC/REF
 cd TD3_GC
 ```
 
@@ -28,9 +28,12 @@ cd TD3_GC
 FASTQC will be used to evaluate the quality of raw sequenced data.
 
 ```
+# Change directory & create symlink
 cd 0_FASTQ/0_RAW
-cp /gstock/Comparative_genomics/0_FASTQ/0_RAW/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz .
-/biolo/ngs/fastqc/fastqc NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz -o FASTQC_CONTROL
+ln -s /home/weber/Comparative_Genomics/Data/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz .
+
+# RUN FASTQC
+fastqc NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz -o FASTQC_CONTROL
 gunzip 
 cd FASTQC_CONTROL
 unzip NA12878.GAIIx.exome_chr22.1E6reads.76bp_fastqc.zip
