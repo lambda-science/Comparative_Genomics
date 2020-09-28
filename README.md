@@ -5,22 +5,15 @@
 * For linux and mac users : use terminal
 * For windows users : use mobaxterm or putty
 ```
-ssh login@ssh.lbgi.fr	(mdp : GC_2018)
-ssh studio
+ssh login@tp.lbgi.fr	(mdp : genomics2020)
 ```
 
-Create a specific folder for TD4-CG
+Create a specific folder for TD3-GC
 ```
 cd
-mkdir TD4_CG
-cd TD4_CG
+mkdir TD3_GC TD3_GC/0_FASTQ TD3_GC/1_BAM TD3_GC/2_VCF TD3_GC/REF
+cd TD3_GC
 ```
-
-Copy the structure of subfolders
-```
-xargs mkdir -p </gstock/Comparative_genomics/dirs.txt
-```
-
 
 ## 1. FASTQ file preprocessing and QC
 
@@ -140,27 +133,27 @@ uniq | \
 bgzip > chr22.tidy.uniq.vcf.gz
 ```
 
-We can now perform an annotation with 6 selected databases : 
-* refGene - function and gene-based annotation
-* cytoBand - region-based annotation ; identification of cytogenetic band
-* exac03 - prevalence in exome data
-* avsnp147 - variant identifier
-* dbnsfp30a - functional prediction of variants in whole-exome data
-* clinvar_20160302 - disease-specific variants
 
-```
-/biolo/ngs/annovar/table_annovar.pl \
-chr22.tidy.uniq.vcf.gz \
-../REF/humandb/ \
--buildver hg19 \
--out myanno \
--remove \
--protocol refGene,cytoBand,exac03,avsnp147,dbnsfp30a,clinvar_20160302 \
--operation g,r,f,f,f,f -nastring . -vcfinput
-```
 
-Just for test, we can search all the variants where clinical significance were already been observed at least one time and then identify the pathogenic variation.
 
-```
-zgrep -P "CLINSIG=[a-zA-Z]+" myanno.hg19_multianno.vcf.gz  | grep 'genic'
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
