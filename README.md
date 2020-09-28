@@ -106,14 +106,12 @@ bwa mem /gstock/Comparative_genomics/REF/Homo_sapiens.GRCh37.dna.chr22.fa.gz ../
 /biolo/ngs/samtools/samtools-1.8 idxstats chr22.bam
 ```
 
-## 3. Calling and annotation of variants
+## 3. Calling of variants
 * Tools used : 
 	* SAMTOOLS -> #PATH = /biolo/ngs/samtools/samtools
 		* website : http://www.htslib.org/doc/samtools.html
 	* BCFTOOLS -> #PATH = /biolo/ngs/bcftools/bin/bcftools
 		* website : https://samtools.github.io/bcftools/bcftools.html
-	* ANNOVAR -> #PATH = /biolo/ngs/annovar 
-		* website : http://annovar.openbioinformatics.org/en/latest/articles/VCF/
 
 Here, we will call only the small variants (<50 bp) : Single Nucleotide Variation and indel with Samtools and Bcftools.
 Samtools mpileup will produce a pileup file and Bcftools will convert it to a standard VCF file.
