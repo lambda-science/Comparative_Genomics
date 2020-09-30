@@ -1,4 +1,4 @@
-# Comparative_Genomics
+# TD3 Comparative_Genomics - Exome analysis (SNV calling)
 
 ## 0. Preparation
 
