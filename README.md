@@ -10,81 +10,59 @@ ssh login@tp.lbgi.fr	(mdp : genomics2020)
 
 Create a specific folder for TD3-GC
 ```
-cd
-mkdir TD3_GC TD3_GC/0_FASTQ TD3_GC/0_FASTQ/0_RAW TD3_GC/0_FASTQ/0_RAW/FASTQC TD3_GC/0_FASTQ/1_CLEAN TD3_GC/0_FASTQ/1_CLEAN/FASTQC TD3_GC/1_BAM TD3_GC/2_VCF TD3_GC/REF
-cd TD3_GC
+mkdir  $HOME/TD3_GC  $HOME/TD3_GC/0_FASTQ  $HOME/TD3_GC/0_FASTQ/FASTQC_CONTROL  $HOME/TD3_GC/1_BAM  $HOME/TD3_GC/2_VCF  $HOME/TD3_GC/REF
+cd $HOME/TD3_GC
 ```
 
-## 1. FASTQ file preprocessing and QC
+## 1. FASTQ quality control
 
 * Tools used : 
 	* FASTQC -> #PATH = /biolo/ngs/fastqc/fastqc
 		* website : https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-	* Trimmomatic -> #PATH = /biolo/ngs/trimmomatic/classes/trimmomatic.jar
-		* website : http://www.usadellab.org/cms/?page=trimmomatic
-
-### A. On raw data
 
 FASTQC will be used to evaluate the quality of raw sequenced data.
 
 ```
-# Change directory & create symlink
-cd 0_FASTQ/0_RAW
-ln -s /home/weber/Comparative_Genomics/Data/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz .
+# Change directory & create symlink for raw data
+cd $HOME/TD3_GC/0_FASTQ/
+ln -s /home/weber/Comparative_Genomics/Data/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz $HOME/TD3_GC/0_FASTQ/ 
+zcat $HOME/TD3_GC/0_FASTQ/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz | head 
+```
+ > :question: How many lines are used to represent each read?
+
+
+```
 
 # RUN FASTQC
-fastqc NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz -o FASTQC_CONTROL
-gunzip 
-cd FASTQC_CONTROL
+fastqc $HOME/TD3_GC/0_FASTQ/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz -o $HOME/TD3_GC/0_FASTQ/FASTQC_CONTROL
+
+cd $HOME/TD3_GC/0_FASTQ/FASTQC_CONTROL
 unzip NA12878.GAIIx.exome_chr22.1E6reads.76bp_fastqc.zip
 cd NA12878.GAIIx.exome_chr22.1E6reads.76bp_fastqc
 ```
 
-Check information into the text file ...
+You can check information into the text file ...
 
 ```
-less fastqc_data.txt (q to quit)
+less fastqc_data.txt
 ```
+... or visualize the html report in a web browser.
 
-... or visualize the report in the html page with a web browser.
+The html report can be consulted [here](http://lbgi.fr/~weber/GC/TD3/0_FASTQ/FASTQC_report.html).
 
-### B. On trimmed data
 
-Now, we want to clean the data to remove adapters and biased parts of reads. We will use Trimmomatic for this step
 
-```
-cd ../1_CLEAN
-java -jar /biolo/ngs/trimmomatic/classes/trimmomatic.jar SE \
--phred33 \
-../0_RAW/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz \
-chr22_clean.fastq.gz \
-ILLUMINACLIP:TruSeq3-SE:2:30:10 \
-LEADING:28 \
-TRAILING:28 \
-SLIDINGWINDOW:4:15 \
-MINLEN:36
-```
+> :question: How many sequences are available?
 
-Some info about parameters used in Trimmomatic :
+> :question: What is the sequence length?
 
-* ILLUMINACLIP: Cut adapter and other illumina-specific sequences from the read.
-* SLIDINGWINDOW: Perform a sliding window trimming, cutting once the average quality within the window falls below a threshold.
-* LEADING: Cut bases off the start of a read, if below a threshold quality
-* TRAILING: Cut bases off the end of a read, if below a threshold quality
-* CROP: Cut the read to a specified length
-* HEADCROP: Cut the specified number of bases from the start of the read
-* MINLEN: Drop the read if it is below a specified length
-* TOPHRED33: Convert quality scores to Phred-33
-* TOPHRED64: Convert quality scores to Phred-64
+> :question: Do you find poor quality sequences?
 
-Then, use Fastqc on clean data
-```
-/biolo/ngs/fastqc/fastqc chr22_clean.fastq.gz  -o FASTQC_CONTROL
-cd FASTQC_CONTROL
-less fastqc_data.txt (q to quit)
-```
+> :question: What do you think of the overall data quality?
 
-You can now compare the reports performed by FASTQC on both raw and clean fastq files.
+> :question: Which part of the reads exhibit a lower quality? 
+
+
 
 ## 2. Alignment
 * Tools used : 
@@ -93,21 +71,71 @@ You can now compare the reports performed by FASTQC on both raw and clean fastq 
 	* SAMTOOLS -> #PATH = /biolo/ngs/samtools/samtools
 		* website : http://samtools.sourceforge.net/
 
-BWA mem is used for the alignment of clean reads to the choosed reference sequence of the chr22 (GRCh37 p.13 - Ensembl). 
+```
+ln -s /home/weber/Comparative_Genomics/Data/Homo_sapiens.GRCh37.dna.compilation.fa.gz $HOME/TD3_GC/REF
+```
+
+BWA mem is used for the alignment of clean reads to the human reference genome (GRCh37 p.13 - Ensembl). 
+
 Samtools is a toolbox used to handle alignments file, here we piped the output of bwa to samtools to sort the alignements produced and write it to a binary file (compressed size).  
 ```
-cd ../../2_ALIGNMENT
-/biolo/ngs/bwa/bwa mem
-bwa mem /gstock/Comparative_genomics/REF/Homo_sapiens.GRCh37.dna.chr22.fa.gz ../0_FASTQ/1_CLEAN/chr22_clean.fastq.gz | samtools sort -o chr22.bam -
+cd ../../1_BAM
+bwa mem $HOME/TD3_GC/REF/Homo_sapiens.GRCh37.dna.compilation.fa.gz $HOME/TD3_GC/0_FASTQ/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz | samtools sort -o $HOME/TD3_GC/1_BAM/mapping.bam -
 ```
 
+---
+**BWA mapping statistics**
+
+
+	1151702 reads; of these:
+
+		1151702 (100.00%) were unpaired; of these:
+
+			5745 (0.50%) aligned 0 times
+
+			892998 (77.54%) aligned exactly 1 time
+
+			252959 (21.96%) aligned >1 times
+
+	99.50% overall alignment rate
+
+---
+
+> :question: Considering the mapping stats provided by BWA (see above), do you think that the alignment step is successful?
+
+
+
+### Calculate IdxStats (tabulate mapping statistics for BAM dataset)
 ```
-/biolo/ngs/samtools/samtools-1.8 flagstat chr22.bam
+samtools idxstats mapping.bam
 ```
 
+> :question: How do you explain these results?
+
+
+### Filtering
 ```
-/biolo/ngs/samtools/samtools-1.8 idxstats chr22.bam
+samtools view mapping.bam 22 > chr22.bam
+samtools idxstats mapping.bam
+
 ```
+
+### IGV alignement 
+
+IGV web : https://igv.org/app/
+
+Load the bam file [here](https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam) & the index file [here](https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam) with URL (Tracks > URL)
+
+Select the chr22 & zoom until reads appear.
+
+
+> :question: Are reads exclusively mapped on exonic regions? Why?
+
+> :question: Do you think that all observed mismatches correspond to variants? 
+
+> :question: What criteria have to be fulfilled to infer variants?
+
+
 
 ## 3. Calling of variants
 * Tools used : 
@@ -120,24 +148,57 @@ Here, we will call only the small variants (<50 bp) : Single Nucleotide Variatio
 Samtools mpileup will produce a pileup file and Bcftools will convert it to a standard VCF file.
 
 ```
-/biolo/ngs/samtools/samtools mpileup -uf /gstock/Comparative_Genomics/REF/Homo_sapiens.GRCh37.dna.chr22.fa.gz  ../1_BAM/chr22.bam | \
-/biolo/ngs/bcftools/bin/bcftools call -mv -Oz > chr22.vcf.gz
+samtools mpileup -uf $HOME/TD3_GC/REF/Homo_sapiens.GRCh37.dna.compilation.fa.gz  $HOME/TD3_GC/1_BAM/chr22.bam | bcftools call -mv -Oz > $HOME/TD3_GC/2_VCF/chr22.vcf.gz
 ```
 
-We can now process to a classical decomposition and normalization of the VCF file (one allele per line (decompose), normalized positions to compare alleles (normalize) : see the link above).
-
-```
-/biolo/ngs/vt/vt decompose -s chr22.vcf.gz | \
-/biolo/ngs/vt/vt normalize -r ../REF/Homo_sapiens.GRCh37.dna.chr22.fa.gz - | \
-vcf-sort | \
-uniq | \
-bgzip > chr22.tidy.uniq.vcf.gz
-```
+> :question: How many regions do you obtain? 
 
 
+https://www.internationalgenome.org/wiki/Analysis/vcf4.0
+
+bcftools view -i 'QUAL>50' chr22.vcf.gz | bgzip > chr22_filter.vcf.gz
+
+> :question: How many reliable SNVs have been called? 
+> :question: Considering that roughly 1 SNV is expected per 1000 bases in an exome and that the exome of chr22 is about 700 Kb, is it a reasonable value?
 
 
+## 4. Annotation of variants 
 
+
+Variant Effect Predictor : http://grch37.ensembl.org/Homo_sapiens/Tools/VEP
+
+### :warning: Click on Ensembl default below the white frame for input data
+
+Paste the [URL](http://lbgi.fr/~weber/GC/TD3/2_VCF/chr22_filter.vcf.gz) corresponding to the chr22 VCF file in the URL field.
+
+Select the following options :
+- Transcript database to use
+  - RefSeq transcripts
+- Additional configuration
+  - Variants and frequency data
+    - Frequency data for co-located variants:s
+      - **DISABLE** 1000 Genomes global minor allele frequency
+      - **ENABLE** gnomAD (exomes) allele frequencies
+  - Predictions
+    - Pathogenicity predictions
+      - **ENABLE** CADD
+  - Filtering options
+    - Filters
+      - Restrict results: Show one selected consequence per gene
+
+Then RUN !
+
+> :question: How many missense variants are there in this file ? (approximately)
+
+Create a filter to select only missense_variant (Consequence is missense_variant)
+
+Focus on 22:23482483-23482483 :
+
+> :question: On which gene is the variant ? Which exon ?
+
+> :question: Why this variant is difficult to interpret ? (MAF, scores)
+
+> :question: *Bonus : is the variant referenced in ClinVar ?*  
 
 
 
