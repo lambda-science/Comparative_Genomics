@@ -167,7 +167,7 @@ bcftools view -i 'QUAL>50' chr22.vcf.gz | bgzip > chr22_filter.vcf.gz
 
 Variant Effect Predictor : http://grch37.ensembl.org/Homo_sapiens/Tools/VEP
 
-<p class="callout warning">Click on <b>Ensembl default</b> below the white frame for input data </p>
+> :warning: Click on **Ensembl default** below the white frame for input data </p>
 
 Paste the [URL](http://lbgi.fr/~weber/GC/TD3/2_VCF/chr22_filter.vcf.gz) corresponding to the chr22 VCF file in the URL field.
 
