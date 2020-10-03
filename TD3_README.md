@@ -1,4 +1,4 @@
-# TD3 Comparative_Genomics - Exome analysis (SNV calling)
+# Comparative_Genomics
 
 ## 0. Preparation
 
@@ -167,7 +167,7 @@ bcftools view -i 'QUAL>50' chr22.vcf.gz | bgzip > chr22_filter.vcf.gz
 
 Variant Effect Predictor : http://grch37.ensembl.org/Homo_sapiens/Tools/VEP
 
-### :warning: Click on Ensembl default below the white frame for input data
+<p class="callout warning">Click on <b>Ensembl default</b> below the white frame for input data </p>
 
 Paste the [URL](http://lbgi.fr/~weber/GC/TD3/2_VCF/chr22_filter.vcf.gz) corresponding to the chr22 VCF file in the URL field.
 
@@ -199,23 +199,3 @@ Focus on 22:23482483-23482483 :
 > :question: Why this variant is difficult to interpret ? (MAF, scores)
 
 > :question: *Bonus : is the variant referenced in ClinVar ?*  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
