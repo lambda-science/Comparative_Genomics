@@ -83,13 +83,14 @@ BWA mem is used for the alignment of clean reads to the human reference genome (
 Samtools is a toolbox used to handle alignments file, here we piped the output of bwa to samtools to sort the alignements produced and write it to a binary file (compressed size).  
 ```
 ref_file = "/home/weber/Comparative_Genomics/Data/Homo_sapiens.GRCh37.dna.compilation.fa.gz"
-ln -s "$ref_file" destionation
+ln -s "$ref_file" destination
 ```
 
 ```
+# BWA-MEM - MEM : Maximal Exact Matches algorithm, adapted to short read sequences
 bwa mem fastq_clean_file ref_file
-samtools sort -o output_bam_file
-Commands can be piped (with |)
+samtools sort -o (o : output) output_bam_file
+# Commands can be piped (with |) or use separately (need to produce intermediate output file )
 ```
 
 
@@ -160,7 +161,7 @@ Samtools mpileup will produce a pileup file and Bcftools will convert it to a st
 ```
 samtools mpileup -uf (u :produce a VCF file & f: fasta reference) fasta_file bam_file 
 bcftools call -mv (m: multiallelic caller, v : variants_only) -Oz (O : output_type, z : compressed VCF file)
-Commands can be piped (with |)
+# Commands can be piped (with |) or use separately (need to produce intermediate output file )
 ```
 
 > :question: How many regions do you obtain? 
@@ -170,6 +171,7 @@ Filter to keep only SNVs with quality > 50
 
 ```
 bcftools view -i (i: include) parameter_to_find[:)] vcf_file
+# HELP HERE : https://samtools.github.io/bcftools/bcftools.html#expressions
 ```
 
 > :question: How many reliable SNVs have been called? 
