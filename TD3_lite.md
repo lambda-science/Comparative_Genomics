@@ -20,7 +20,8 @@ Please use symbolic links (`ln -s source destination`) and don't copy/paste file
 * Tools used : 
 	* FASTQC -> #PATH = /biolo/ngs/fastqc/fastqc
 		* website : https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-
+	* Trimmomatic -> #PATH = /biolo/ngs/trimmomatic/classes/trimmomatic.jar
+		* website : http://www.usadellab.org/cms/?page=trimmomatic
 
 
  > :question: How many lines are used to represent each read?
@@ -30,8 +31,8 @@ FASTQC will be used to evaluate the quality of raw sequenced data.
 
 
 ```
-fastq_file = "/home/weber/Comparative_Genomics/Data/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz"
-ln -s "$fastq_file" destination
+fastq_raw_file = "/home/weber/Comparative_Genomics/Data/chr22_raw.fastq.gz"
+ln -s "$fastq_raw_file" destination
 
 # RUN FASTQC
 fastqc input(fastq.gz) -o output_directory
@@ -52,6 +53,18 @@ The html report can be consulted [here](http://lbgi.fr/~weber/GC/TD3/0_FASTQ/FAS
 
 > :question: Which part of the reads exhibit a lower quality? 
 
+
+FASTQ file was cleaned with Trimmomatic and following settings:
+- ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 \
+- LEADING:10
+- TRAILING:10
+- SLIDINGWINDOW:4:15 
+- MINLEN:36
+
+```
+# Clean FASTQ file can be found here
+fastq_clean_file = "/home/weber/Comparative_Genomics/Data/chr22_clean.fastq.gz"
+```
 
 
 ## 2. Alignment
@@ -74,7 +87,7 @@ ln -s "$ref_file" destionation
 ```
 
 ```
-bwa mem fastq_file ref_file
+bwa mem fastq_clean_file ref_file
 samtools sort -o output_bam_file
 Commands can be piped (with |)
 ```
