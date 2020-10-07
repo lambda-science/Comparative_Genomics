@@ -23,7 +23,10 @@ Please use symbolic links (`ln -s source destination`) and don't copy/paste file
 	* Trimmomatic -> #PATH = /biolo/ngs/trimmomatic/classes/trimmomatic.jar
 		* website : http://www.usadellab.org/cms/?page=trimmomatic
 
-
+```
+fastq_raw_file = "/home/weber/Comparative_Genomics/Data/chr22_raw.fastq.gz"
+ln -s "$fastq_raw_file" destination
+```
  > :question: How many lines are used to represent each read?
 
 
@@ -31,9 +34,6 @@ FASTQC will be used to evaluate the quality of raw sequenced data.
 
 
 ```
-fastq_raw_file = "/home/weber/Comparative_Genomics/Data/chr22_raw.fastq.gz"
-ln -s "$fastq_raw_file" destination
-
 # RUN FASTQC
 fastqc input(fastq.gz) -o output_directory
 
