@@ -175,6 +175,7 @@ bcftools view -i (i: include) parameter_to_find[:)] vcf_file
 ```
 
 > :question: How many reliable SNVs have been called? 
+
 > :question: Considering that roughly 1 SNV is expected per 1000 bases in an exome and that the exome of chr22 is about 700 Kb, is it a reasonable value?
 
 
@@ -212,6 +213,6 @@ Focus on 22:23482483-23482483 :
 
 > :question: On which gene is the variant ? Which exon ?
 
-> :question: Why this variant is difficult to interpret ? (MAF, scores)
+> :question: Why is this variant difficult to interpret ? (MAF, scores)
 
 > :question: *Bonus : is the variant referenced in ClinVar ?*  
