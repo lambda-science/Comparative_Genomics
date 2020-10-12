@@ -82,7 +82,7 @@ BWA mem is used for the alignment of clean reads to the human reference genome (
 
 Samtools is a toolbox used to handle alignments file, here we piped the output of bwa to samtools to sort the alignements produced and write it to a binary file (compressed size).  
 ```
-ref_file = "/home/weber/Comparative_Genomics/Data/Homo_sapiens.GRCh37.dna.compilation.fa.gz"
+ref_file = "/home/weber/Comparative_Genomics/TD3_GC/REF/Homo_sapiens.GRCh37.dna.compilation.fa.gz"
 ```
 
 ```
