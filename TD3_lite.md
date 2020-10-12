@@ -88,7 +88,7 @@ ln -s "$ref_file" destination
 
 ```
 # BWA-MEM - MEM : Maximal Exact Matches algorithm, adapted to short read sequences
-bwa mem fastq_clean_file ref_file
+bwa mem ref_file fastq_clean_file
 samtools sort -o (o : output) output_bam_file
 # Commands can be piped (with |) or use separately (need to produce intermediate output file )
 ```
