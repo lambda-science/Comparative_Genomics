@@ -135,7 +135,7 @@ samtools view output_bam_file chr
 
 IGV web : https://igv.org/app/
 
-Load the bam file [here](https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam) & the index file [here](https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam) with URL (Tracks > URL)
+Load the bam file [here](https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam) & the index file [here](https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam.bai) with URL (Tracks > URL)
 
 Select the chr22 & zoom until reads appear.
 
