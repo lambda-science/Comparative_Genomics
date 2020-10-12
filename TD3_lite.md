@@ -118,6 +118,7 @@ samtools sort -o (o : output) output_bam_file
 
 ### Calculate IdxStats (tabulate mapping statistics for BAM dataset)
 ```
+samtools index output_bam_file
 samtools idxstats output_bam_file
 ```
 
