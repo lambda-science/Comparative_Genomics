@@ -13,7 +13,6 @@ Create a specific folder for TD3-GC
 mkdir  $HOME/TD3_GC  $HOME/TD3_GC/0_FASTQ  $HOME/TD3_GC/0_FASTQ/FASTQC_CONTROL  $HOME/TD3_GC/1_BAM  $HOME/TD3_GC/2_VCF  $HOME/TD3_GC/REF
 ```
 
-Please use symbolic links (`ln -s source destination`) and don't copy/paste files (50 Mb * 40 students = 2Gb)
 
 ## 1. FASTQ quality control
 
