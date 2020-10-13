@@ -3,7 +3,7 @@
 ## 0. Preparation
 
 * For linux and mac users : use terminal
-* For windows users : use mobaxterm or putty
+* For windows users : use mobaxterm, putty or powershell (advanced usage)
 ```
 ssh login@tp.lbgi.fr	(mdp : genomics2020)
 ```
