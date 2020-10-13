@@ -52,17 +52,18 @@ The html report can be consulted [here](http://lbgi.fr/~weber/GC/TD3/0_FASTQ/FAS
 > :question: Which part of the reads exhibit a lower quality? 
 
 
+
+```
+# Clean FASTQ file can be found here
+fastq_clean_file = "/data/FASTQ/chr22_clean.fastq.gz"
+```
+
 FASTQ file was cleaned with Trimmomatic and following settings:
 - ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 \
 - LEADING:10
 - TRAILING:10
 - SLIDINGWINDOW:4:15 
 - MINLEN:36
-
-```
-# Clean FASTQ file can be found here
-fastq_clean_file = "/data/FASTQ/chr22_clean.fastq.gz"
-```
 
 
 ## 2. Alignment
