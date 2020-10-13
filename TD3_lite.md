@@ -59,10 +59,10 @@ fastq_clean_file = "/data/FASTQ/chr22_clean.fastq.gz"
 ```
 
 FASTQ file was cleaned with Trimmomatic and following settings:
-- ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 \
+- ILLUMINACLIP:TruSeq3-SE.fa:2:30:10
 - LEADING:10
 - TRAILING:10
-- SLIDINGWINDOW:4:15 
+- SLIDINGWINDOW:4:15
 - MINLEN:36
 
 
