@@ -24,8 +24,7 @@ Please use symbolic links (`ln -s source destination`) and don't copy/paste file
 		* website : http://www.usadellab.org/cms/?page=trimmomatic
 
 ```
-fastq_raw_file = "/home/weber/Comparative_Genomics/Data/chr22_raw.fastq.gz"
-ln -s "$fastq_raw_file" destination
+fastq_raw_file = "/data/FASTQ/chr22_raw.fastq.gz"
 ```
  > :question: How many lines are used to represent each read?
 
@@ -35,7 +34,7 @@ FASTQC will be used to evaluate the quality of raw sequenced data.
 
 ```
 # RUN FASTQC
-fastqc input(fastq.gz) -o output_directory
+fastqc input -o output_directory
 
 # TO EXTRACT PRODUCED ZIP (unzip .zip_file)
 ```
@@ -63,7 +62,7 @@ FASTQ file was cleaned with Trimmomatic and following settings:
 
 ```
 # Clean FASTQ file can be found here
-fastq_clean_file = "/home/weber/Comparative_Genomics/Data/chr22_clean.fastq.gz"
+fastq_clean_file = "/data/FASTQ/chr22_clean.fastq.gz"
 ```
 
 
@@ -74,22 +73,20 @@ fastq_clean_file = "/home/weber/Comparative_Genomics/Data/chr22_clean.fastq.gz"
 	* SAMTOOLS -> #PATH = /biolo/ngs/samtools/samtools
 		* website : http://samtools.sourceforge.net/
 
-```
-ln -s  $HOME/TD3_GC/REF
-```
-
 BWA mem is used for the alignment of clean reads to the human reference genome (GRCh37 p.13 - Ensembl). 
 
 Samtools is a toolbox used to handle alignments file, here we piped the output of bwa to samtools to sort the alignements produced and write it to a binary file (compressed size).  
+
+
 ```
-ref_file = "/home/weber/TD3_GC/REF/Homo_sapiens.GRCh37.dna.compilation.fa.gz"
+ref_file = "/data/REF/Homo_sapiens.GRCh37.dna.compilation.fa.gz"
 ```
 
 ```
 # BWA-MEM - MEM : Maximal Exact Matches algorithm, adapted to short read sequences
 bwa mem ref_file fastq_clean_file
 samtools sort -o (o : output) output_bam_file
-# Commands can be piped (with |) or use separately (need to produce intermediate output file )
+# Commands need to be piped (with |)
 ```
 
 
@@ -126,9 +123,11 @@ samtools idxstats output_bam_file
 
 
 ### Filtering
-```
-samtools view output_bam_file chr
 
+To filter and keep only alignements on specified chromosome, you can use the following command : 
+
+```
+samtools view output_bam_file chr_to_keep -o output_bam_file_chr_to_keep
 ```
 
 ### IGV alignement 
@@ -161,7 +160,9 @@ Samtools mpileup will produce a pileup file and Bcftools will convert it to a st
 ```
 samtools mpileup -uf (u :produce a VCF file & f: fasta reference) fasta_file bam_file 
 bcftools call -mv (m: multiallelic caller, v : variants_only) -Oz (O : output_type, z : compressed VCF file)
-# Commands can be piped (with |) or use separately (need to produce intermediate output file )
+# Commands need to be piped (with |) and complete by a > at the end to produce a file
+# Example : command 1 | command 2 > output
+# > redirect the "standard output (stdout)" into a file
 ```
 
 > :question: How many regions do you obtain? 
@@ -170,7 +171,7 @@ bcftools call -mv (m: multiallelic caller, v : variants_only) -Oz (O : output_ty
 Filter to keep only SNVs with quality > 50
 
 ```
-bcftools view -i (i: include) parameter_to_find[:)] vcf_file
+bcftools view -i (i: include) parameter_to_find[ :) ] vcf_file
 # HELP HERE : https://samtools.github.io/bcftools/bcftools.html#expressions
 ```
 
