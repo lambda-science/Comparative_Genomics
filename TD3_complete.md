@@ -144,7 +144,7 @@ VEP results [https://grch37.ensembl.org/Homo_sapiens/Tools/VEP/Results?tl=07BBAV
 
 > :question: How many missense variants are there in this file ? (approximately)
 
-> :bulb: 
+> :bulb: ~721
 
 
 Create a filter to select only missense_variant (Consequence is missense_variant)
@@ -153,7 +153,7 @@ Focus on 22:23482483-23482483 :
 
 > :question: On which gene is the variant ? Which exon ?
 
-> :bulb: RTDR1 / Exon 2/7
+> :bulb: RSPH14 / Exon 2/7
 
 
 > :question: Why this variant is difficult to interpret ? (MAF, scores)
