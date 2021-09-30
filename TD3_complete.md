@@ -9,7 +9,7 @@ FASTQC will be used to evaluate the quality of raw sequenced data.
  > :bulb: 4 (1 : @character + read identifier, 2 : raw sequence letter, 3 : comment line, 4 : phred quality score) [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format)
 
 
-The html report can be consulted [here](http://lbgi.fr/~meyer/TD3/FASTQC_report.html).
+The html report can be consulted [here](https://lbgi.fr/~meyer/TD3/FastQC_on_data_1__Webpage_html.html).
 
 
 
@@ -99,26 +99,19 @@ Select the chr22 & zoom until reads appear.
 
 ## 3. Calling of variants
 
-> :question: How many variants do you obtain? 
-
-> :bulb: 
-
-
 > :question: How many regions do you obtain? 
 
-> :bulb: 
+> :bulb: 16 613
 
-
-https://www.internationalgenome.org/wiki/Analysis/vcf4.0
 
 > :question: How many reliable SNVs have been called? 
 
-> :bulb: 
+> :bulb: 821 Lines = 821 SNVs
 
 
 > :question: Considering that roughly 1 SNV is expected per 1000 bases in an exome and that the exome of chr22 is about 700 Kb, is it a reasonable value?
 
-> :bulb: Expecting ~ 700 variants so it's good !
+> :bulb: Expecting ~ 700 variants so 821 is good !
 
 
 ## 4. Annotation of variants 
