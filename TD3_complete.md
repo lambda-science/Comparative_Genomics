@@ -1,59 +1,15 @@
 # Comparative_Genomics
 
-## 0. Preparation
-
-* For linux and mac users : use terminal
-* For windows users : use mobaxterm, putty or powershell (advanced usage)
-```
-ssh login@tp.lbgi.fr	(mdp : genomics2020)
-```
-
-Create a specific folder for TD3-GC
-```
-mkdir  $HOME/TD3_GC  $HOME/TD3_GC/0_FASTQ  $HOME/TD3_GC/0_FASTQ/FASTQC_CONTROL  $HOME/TD3_GC/1_BAM  $HOME/TD3_GC/2_VCF  $HOME/TD3_GC/REF
-cd $HOME/TD3_GC
-```
-
 ## 1. FASTQ quality control
-
-* Tools used : 
-	* FASTQC -> #PATH = /biolo/ngs/fastqc/fastqc
-		* website : https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-	* Trimmomatic -> #PATH = /biolo/ngs/trimmomatic/classes/trimmomatic.jar
-		* website : http://www.usadellab.org/cms/?page=trimmomatic
 
 FASTQC will be used to evaluate the quality of raw sequenced data.
 
-```
-## COMPLETE
-cd $HOME/TD3_GC/0_FASTQ/
-zcat $HOME/TD3_GC/0_FASTQ/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq.gz | head 
-
-# STUDENT
-fastq_raw_file="/data/FASTQ/chr22_raw.fastq.gz"
-```
  > :question: How many lines are used to represent each read?
  
  > :bulb: 4 (1 : @character + read identifier, 2 : raw sequence letter, 3 : comment line, 4 : phred quality score) [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format)
 
-```
-## COMPLETE
-# RUN FASTQC
-fastqc /data/FASTQ/chr22_raw.fastq.gz -o $HOME/TD3_GC/0_FASTQ/FASTQC_CONTROL
 
-cd $HOME/TD3_GC/0_FASTQ/FASTQC_CONTROL
-unzip NA12878.GAIIx.exome_chr22.1E6reads.76bp_fastqc.zip
-cd NA12878.GAIIx.exome_chr22.1E6reads.76bp_fastqc
-
-## STUDENT
-# RUN FASTQC
-fastqc input -o output_directory
-
-# TO EXTRACT PRODUCED ZIP
-unzip .zip_file
-```
-
-The html report can be consulted [here](http://lbgi.fr/~weber/GC/TD3/0_FASTQ/FASTQC_report.html).
+The html report can be consulted [here](http://lbgi.fr/~meyer/TD3/FASTQC_report.html).
 
 
 
@@ -83,47 +39,12 @@ The html report can be consulted [here](http://lbgi.fr/~weber/GC/TD3/0_FASTQ/FAS
 > :bulb: At the end of the sequences (sequence quality) & the start the reads (base content)
 
 
-```
-# Clean FASTQ file can be found here
-fastq_clean_file="/data/FASTQ/chr22_clean.fastq.gz"
-```
-
-FASTQ file was cleaned with Trimmomatic and following settings:
-- ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 \
-- LEADING:10
-- TRAILING:10
-- SLIDINGWINDOW:4:15 
-- MINLEN:36
-
-
-
-
 ## 2. Alignment
-* Tools used : 
-	* BWA -> #PATH = /biolo/ngs/bwa/bwa mem
-		* website : http://bio-bwa.sourceforge.net/
-	* SAMTOOLS -> #PATH = /biolo/ngs/samtools/samtools
-		* website : http://samtools.sourceforge.net/
 
-
-BWA mem is used for the alignment of clean reads to the human reference genome (GRCh37 p.13 - Ensembl). 
-
-Samtools is a toolbox used to handle alignments file, here we piped the output of bwa to samtools to sort the alignements produced and write it to a binary file (compressed size).  
-
-```
-## COMPLETE
-cd ../../1_BAM
-bwa mem /data/REF/Homo_sapiens.GRCh37.dna.compilation.fa.gz /data/FASTQ/chr22_clean.fastq.gz | samtools sort -o $HOME/TD3_GC/1_BAM/mapping.bam -
-
-## STUDENT
-# BWA-MEM - MEM : Maximal Exact Matches algorithm, adapted to short read sequences
-bwa mem ref_file fastq_clean_file 
-samtools sort -o (o : output) output_bam_file
-# Commands can be piped (with |) or use separately (need to produce intermediate output file )
-```
+Bowtie is used for the alignment of the reads to the human reference genome (GRCh37 p.13 - Ensembl). 
 
 ---
-**BWA mapping statistics**
+**Bowtie2 mapping statistics**
 
 
 	1151702 reads; of these:
@@ -146,37 +67,16 @@ samtools sort -o (o : output) output_bam_file
 
 
 ### Calculate IdxStats (tabulate mapping statistics for BAM dataset)
-```
-## COMPLETE
-samtools index $HOME/TD3_GC/1_BAM/mapping.bam
-samtools idxstats $HOME/TD3_GC/1_BAM/mapping.bam
-
-## STUDENT
-samtools index output_bam_file
-samtools idxstats output_bam_file
-```
 
 > :question: How do you explain these results?
 
 > :bulb: reads can be mapped on other regions due to short length, composition bias, aligment errors
 
-
-### Filtering
-```
-## COMPLETE
-samtools view $HOME/TD3_GC/1_BAM/mapping.bam 22 -o $HOME/TD3_GC/1_BAM/chr22.bam
-samtools index $HOME/TD3_GC/1_BAM/chr22.bam
-samtools idxstats $HOME/TD3_GC/1_BAM/chr22.bam
-
-## STUDENT
-samtools view output_bam_file chr_to_keep -o output_bam_file
-```
-
 ### IGV alignement 
 
 IGV web : https://igv.org/app/
 
-Load the bam file [here](https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam) & the index file [here](https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam.bai) with URL (Tracks > URL)
+Load the bam file [COPY URL](https://lbgi.fr/~meyer/TD3/chr22_bam.bam) & the index file [here](https://lbgi.fr/~meyer/TD3/chr22_index.bai) with URL (Tracks > URL)
 
 Select the chr22 & zoom until reads appear.
 
@@ -198,54 +98,27 @@ Select the chr22 & zoom until reads appear.
 
 
 ## 3. Calling of variants
-* Tools used : 
-	* SAMTOOLS -> #PATH = /biolo/ngs/samtools/samtools
-		* website : http://www.htslib.org/doc/samtools.html
-	* BCFTOOLS -> #PATH = /biolo/ngs/bcftools/bin/bcftools
-		* website : https://samtools.github.io/bcftools/bcftools.html
-
-Here, we will call only the small variants (<50 bp) : Single Nucleotide Variation and indel with Samtools and Bcftools.
-Samtools mpileup will produce a pileup file and Bcftools will convert it to a standard VCF file.
-
-```
-## COMPLETE
-samtools mpileup -uf /data/REF/Homo_sapiens.GRCh37.dna.compilation.fa.gz  $HOME/TD3_GC/1_BAM/chr22.bam | bcftools call -mv -Oz > $HOME/TD3_GC/2_VCF/chr22.vcf.gz
-
-## STUDENT
-samtools mpileup -uf (u :produce a VCF file & f: fasta reference) fasta_file bam_file 
-bcftools call -mv (m: multiallelic caller, v : variants_only) -Oz (O : output_type, z : compressed VCF file)
-# Commands can be piped (with |) or use separately (need to produce intermediate output file )
-```
 
 > :question: How many variants do you obtain? 
 
-> :bulb: 6952
+> :bulb: 
 
 
-> :question: How many SNV (Single Nucleotide Variation) do you obtain? 
+> :question: How many regions do you obtain? 
 
-> :bulb: 6558
+> :bulb: 
 
 
 https://www.internationalgenome.org/wiki/Analysis/vcf4.0
 
-```
-## COMPLETE
-bcftools view -i 'TYPE="snp" & QUAL>50 & DP>=10' chr22.vcf.gz | bgzip > chr22_filter.vcf.gz
-
-## STUDENT
-bcftools view -i (i: include) parameter_to_find[ :) ] vcf_file
-# HELP HERE : https://samtools.github.io/bcftools/bcftools.html#expressions
-```
-
 > :question: How many reliable SNVs have been called? 
 
-> :bulb: 1041
+> :bulb: 
 
 
 > :question: Considering that roughly 1 SNV is expected per 1000 bases in an exome and that the exome of chr22 is about 700 Kb, is it a reasonable value?
 
-> :bulb: Expecting ~ 700 variants but it's in the in the same order of magnitude
+> :bulb: Expecting ~ 700 variants so it's good !
 
 
 ## 4. Annotation of variants 
@@ -255,7 +128,7 @@ Variant Effect Predictor : http://grch37.ensembl.org/Homo_sapiens/Tools/VEP
 
 > :warning: Click on **Ensembl default** below the white frame for input data </p>
 
-Paste the [URL](http://lbgi.fr/~weber/GC/TD3/2_VCF/chr22_filter.vcf.gz) corresponding to the chr22 VCF file in the URL field.
+Paste the [URL](http://lbgi.fr/~meyer/TD3/chr22_filter.vcf.gz) corresponding to the chr22 VCF file in the URL field.
 
 Select the following options :
 - Transcript database to use
@@ -274,11 +147,11 @@ Select the following options :
 
 Then RUN !
 
-VEP results [here](http://grch37.ensembl.org/Homo_sapiens/Tools/VEP/Ticket?tl=ZDKiQMPNVT4BHf6i)
+VEP results [https://grch37.ensembl.org/Homo_sapiens/Tools/VEP/Results?tl=07BBAVXxSGAInvwO-7662449](https://grch37.ensembl.org/Homo_sapiens/Tools/VEP/Results?tl=07BBAVXxSGAInvwO-7662449)
 
 > :question: How many missense variants are there in this file ? (approximately)
 
-> :bulb: ~ 100
+> :bulb: 
 
 
 Create a filter to select only missense_variant (Consequence is missense_variant)
