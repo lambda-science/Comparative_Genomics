@@ -9,7 +9,7 @@ FASTQC will be used to evaluate the quality of raw sequenced data.
  > :bulb: 4 (1 : @character + read identifier, 2 : raw sequence letter, 3 : comment line, 4 : phred quality score) [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format)
 
 
-The html report can be consulted [here](https://lbgi.fr/~meyer/TD3/FastQC_on_data_1__Webpage_html.html).
+The html report can be consulted [https://lbgi.fr/~meyer/TD3/FastQC_on_data_1__Webpage_html.html](https://lbgi.fr/~meyer/TD3/FastQC_on_data_1__Webpage_html.html).
 
 
 
@@ -76,7 +76,7 @@ Bowtie is used for the alignment of the reads to the human reference genome (GRC
 
 IGV web : https://igv.org/app/
 
-Load the bam file [COPY URL](https://lbgi.fr/~meyer/TD3/chr22_bam.bam) & the index file [here](https://lbgi.fr/~meyer/TD3/chr22_index.bai) with URL (Tracks > URL)
+Load the bam file [https://lbgi.fr/~meyer/TD3/chr22_bam.bam](https://lbgi.fr/~meyer/TD3/chr22_bam.bam) & the index file [https://lbgi.fr/~meyer/TD3/chr22_index.bai](https://lbgi.fr/~meyer/TD3/chr22_index.bai) with URL (Tracks > URL)
 
 Select the chr22 & zoom until reads appear.
 
@@ -121,7 +121,7 @@ Variant Effect Predictor : http://grch37.ensembl.org/Homo_sapiens/Tools/VEP
 
 > :warning: Click on **Ensembl default** below the white frame for input data </p>
 
-Paste the [URL](http://lbgi.fr/~meyer/TD3/chr22_filter.vcf.gz) corresponding to the chr22 VCF file in the URL field.
+Paste the [http://lbgi.fr/~meyer/TD3/chr22_filter.vcf.gz](http://lbgi.fr/~meyer/TD3/chr22_filter.vcf.gz) corresponding to the chr22 VCF file in the URL field.
 
 Select the following options :
 - Transcript database to use
