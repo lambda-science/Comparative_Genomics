@@ -60,6 +60,8 @@ Bowtie is used for the alignment of the reads to the human reference genome (GRC
 	99.50% overall alignment rate
 
 ---
+Alignement File results: 
+[https://lbgi.fr/~meyer/TD3/chr22_bam.bam](https://lbgi.fr/~meyer/TD3/chr22_bam.bam) [https://lbgi.fr/~meyer/TD3/chr22_index.bai](https://lbgi.fr/~meyer/TD3/chr22_index.bai)
 
 > :question: Considering the mapping stats provided by BWA (see above), do you think that the alignment step is successful?
 
@@ -76,7 +78,7 @@ Bowtie is used for the alignment of the reads to the human reference genome (GRC
 
 IGV web : https://igv.org/app/
 
-Load the bam file [https://lbgi.fr/~meyer/TD3/chr22_bam.bam](https://lbgi.fr/~meyer/TD3/chr22_bam.bam) & the index file [https://lbgi.fr/~meyer/TD3/chr22_index.bai](https://lbgi.fr/~meyer/TD3/chr22_index.bai) with URL (Tracks > URL)
+Load the bam file [https://lbgi.fr/~meyer/TD3/chr22_bam_filter.bam](https://lbgi.fr/~meyer/TD3/chr22_bam.bam) & the index file [https://lbgi.fr/~meyer/TD3/chr22_index_filter.bai](https://lbgi.fr/~meyer/TD3/chr22_index.bai) with URL (Tracks > URL)
 
 Select the chr22 & zoom until reads appear.
 
