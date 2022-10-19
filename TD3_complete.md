@@ -76,11 +76,11 @@ Alignement File results:
 
 ### IGV alignement 
 
-IGV web : https://igv.org/app/
+IGV web : https://igv.org/app/  
 
-Load the bam file [https://lbgi.fr/~meyer/TD3/chr22_bam_filter.bam](https://lbgi.fr/~meyer/TD3/chr22_bam.bam) & the index file [https://lbgi.fr/~meyer/TD3/chr22_index_filter.bai](https://lbgi.fr/~meyer/TD3/chr22_index.bai) with URL (Tracks > URL)
+Load the bam file [https://lbgi.fr/~meyer/TD3/chr22_filter.bam](https://lbgi.fr/~meyer/TD3/chr22_filter.bam) & the index file [https://lbgi.fr/~meyer/TD3/chr22_filter.bai](https://lbgi.fr/~meyer/TD3/chr22_filter.bai) with URL (Tracks > URL). If you have an "error status code 0", you will have to download the bam & bai file by cliking the two links and upload them with "local file" instead of just inputing the URL.  
 
-Select the chr22 & zoom until reads appear.
+Select the chr22 & zoom until reads appear. 
 
 
 > :question: Are reads exclusively mapped on exonic regions? Why?
