@@ -74,10 +74,9 @@ Bowtie is used for the alignment of the reads to the human reference genome (GRC
 
 IGV web : https://igv.org/app/
 
-Load the bam file [https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam](https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam) & the index file [https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam.bai](https://lbgi.fr/~weber/GC/TD3/1_BAM/chr22.bam.bai) with URL (Tracks > URL)
+Load the bam file [https://lbgi.fr/~meyer/TD3/chr22_filter.bam](https://lbgi.fr/~meyer/TD3/chr22_filter.bam) & the index file [https://lbgi.fr/~meyer/TD3/chr22_filter.bai](https://lbgi.fr/~meyer/TD3/chr22_filter.bai) with URL (Tracks > URL). If you have an "error status code 0", you will have to download the bam & bai file by cliking the two links and upload them with "local file" instead of just inputing the URL.
 
-Select the chr22 & zoom until reads appear.
-
+Select the chr22 & zoom until reads appear. 
 
 > :question: Are reads exclusively mapped on exonic regions? Why?
 
